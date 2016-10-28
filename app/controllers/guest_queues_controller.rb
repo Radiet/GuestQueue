@@ -14,7 +14,8 @@ class GuestQueuesController < ApplicationController
 
   # GET /guest_queues/new
   def new
-    @guest_queue = GuestQueue.new
+    @next_queue_numbers = get_next_queue
+    @guest_queue = GuestQueue.new()
   end
 
   # GET /guest_queues/1/edit
@@ -70,5 +71,15 @@ class GuestQueuesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def guest_queue_params
       params.require(:guest_queue).permit(:name, :no, :ticket_type)
+    end
+
+    def get_next_queue
+      current_count = GuestQueue.group(:ticket_type).count
+      hash = {}
+
+      GuestQueue::LOCKET_TYPE
+        .each { |type| hash[type] = current_count[type].to_i + 1  }
+
+      hash
     end
 end

@@ -1,8 +1,20 @@
 = simple_form_for @guest_queue, html: { class: "form-horizontal" }, wrapper: :horizontal_form, wrapper_mappings: { check_boxes: :horizontal_radio_and_checkboxes, radio_buttons: :horizontal_radio_and_checkboxes, file: :horizontal_file_input, boolean: :horizontal_boolean } do |f|
   = f.input :name
-  = f.input :no
-  = f.input :ticket_type
+  = f.input :no, { class: 'disabled', disabled: true }
+  = f.input :ticket_type, { as: :select, collection: GuestQueue::LOCKET_TYPE.map{ |t| [t, t, {data: {no: @next_queue_numbers[t]}}] }, include_blank: false }
   .form-group
     .col-sm-offset-3.col-sm-9
       = f.submit nil, class: 'btn btn-primary'
       = link_to t('.cancel', default: t("helpers.links.cancel")), guest_queues_path, class: 'btn btn-default'
+
+javascript:
+  var selectSelector = '#guest_queue_ticket_type'
+  var noSelector = '#guest_queue_no'
+
+  var setNobyType = function () {
+    var lastNo = $(this).find('option:selected').data('no')
+    $(noSelector).val(lastNo)
+  }
+
+  $(selectSelector).change(setNobyType)
+  $(selectSelector).trigger('change')
