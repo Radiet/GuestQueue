@@ -1,0 +1,25 @@
+h1 Listing gqueues
+
+table
+  thead
+    tr
+      th Name
+      th No
+      th Locket type
+      th
+      th
+      th
+
+  tbody
+    - @gqueues.each do |gqueue|
+      tr
+        td = gqueue.name
+        td = gqueue.no
+        td = gqueue.locket_type
+        td = link_to 'Show', gqueue
+        td = link_to 'Edit', edit_gqueue_path(gqueue)
+        td = link_to 'Destroy', gqueue, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Gqueue', new_gqueue_path

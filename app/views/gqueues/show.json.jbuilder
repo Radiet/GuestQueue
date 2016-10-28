@@ -1,0 +1,1 @@
+json.partial! "gqueues/gqueue", gqueue: @gqueue

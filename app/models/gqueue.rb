@@ -1,0 +1,2 @@
+class Gqueue < ApplicationRecord
+end
