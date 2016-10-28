@@ -1,5 +1,6 @@
 class GuestQueuesController < ApplicationController
   before_action :set_guest_queue, only: [:show, :edit, :update, :destroy]
+  before_action :set_next_queue_numbers, only: [:new, :edit, :create]
 
   # GET /guest_queues
   # GET /guest_queues.json
@@ -14,7 +15,6 @@ class GuestQueuesController < ApplicationController
 
   # GET /guest_queues/new
   def new
-    @next_queue_numbers = get_next_queue
     @guest_queue = GuestQueue.new()
   end
 
@@ -25,7 +25,7 @@ class GuestQueuesController < ApplicationController
   # POST /guest_queues
   # POST /guest_queues.json
   def create
-    @guest_queue = GuestQueue.new(guest_queue_params)
+    @guest_queue = GuestQueue.new(guest_queue_params.merge({no: @next_queue_numbers[params[:guest_queue][:ticket_type]]}))
 
     respond_to do |format|
       if @guest_queue.save
@@ -71,6 +71,10 @@ class GuestQueuesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def guest_queue_params
       params.require(:guest_queue).permit(:name, :no, :ticket_type)
+    end
+
+    def set_next_queue_numbers
+      @next_queue_numbers = get_next_queue
     end
 
     def get_next_queue
