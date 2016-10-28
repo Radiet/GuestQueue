@@ -1,0 +1,2 @@
+class GuestQueue < ApplicationRecord
+end

@@ -1,0 +1,1 @@
+json.partial! "guest_queues/guest_queue", guest_queue: @guest_queue

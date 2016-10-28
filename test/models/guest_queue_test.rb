@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class GqueueTest < ActiveSupport::TestCase
+class GuestQueueTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

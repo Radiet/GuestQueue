@@ -1,0 +1,1 @@
+json.array! @guest_queues, partial: 'guest_queues/guest_queue', as: :guest_queue

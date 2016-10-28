@@ -1,1 +1,0 @@
-json.array! @gqueues, partial: 'gqueues/gqueue', as: :gqueue

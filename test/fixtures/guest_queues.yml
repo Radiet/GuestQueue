@@ -3,9 +3,9 @@
 one:
   name: MyString
   'no': MyString
-  locket_type: MyString
+  ticket_type: MyString
 
 two:
   name: MyString
   'no': MyString
-  locket_type: MyString
+  ticket_type: MyString
