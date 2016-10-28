@@ -1,5 +1,5 @@
 = simple_form_for @guest_queue, html: { class: "form-horizontal" }, wrapper: :horizontal_form, wrapper_mappings: { check_boxes: :horizontal_radio_and_checkboxes, radio_buttons: :horizontal_radio_and_checkboxes, file: :horizontal_file_input, boolean: :horizontal_boolean } do |f|
-  = f.input :name
+  = f.input :name, { required: true }
   = f.input :no, { class: 'disabled', disabled: true }
   = f.input :ticket_type, { as: :select, collection: GuestQueue::LOCKET_TYPE.map{ |t| [t, t, {data: {no: @next_queue_numbers[t]}}] }, include_blank: false }
   .form-group
