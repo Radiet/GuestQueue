@@ -1,25 +1,25 @@
 - model_class = GuestQueue
 .page-header
   h1=t '.title', default: model_class.model_name.human.pluralize.titleize
-table.table.table-striped
-  thead
-    tr
-      th= model_class.human_attribute_name(:id)
-      th= model_class.human_attribute_name(:name)
-      th= model_class.human_attribute_name(:no)
-      th= model_class.human_attribute_name(:ticket_type)
-      th= model_class.human_attribute_name(:created_at)
-      th=t '.actions', default: t("helpers.actions")
-  tbody
-    - @guest_queues.each do |guest_queue|
-      tr
-        td= guest_queue.id
-        td= guest_queue.name
-        td= guest_queue.no
-        td= guest_queue.ticket_type
-        td=l guest_queue.created_at, format: :long
-        td
-          = link_to guest_queue_path(guest_queue), class: 'btn btn-xs', title: "#{ t('.show', default: t('helpers.links.show')) }" do
-            = glyph 'info-sign'
+
+  - GuestQueue::LOCKET_TYPE.each do |locket_type|
+    h2.text-center
+      b = locket_type
+    table.table.table-striped
+      thead
+        tr
+          th= model_class.human_attribute_name(:no)
+          th= model_class.human_attribute_name(:name)
+          th= model_class.human_attribute_name(:created_at)
+          th=t '.actions', default: t("helpers.actions")
+      tbody
+        - @guest_queues.where(ticket_type: locket_type).each do |guest_queue|
+          tr
+            td= guest_queue.no
+            td= guest_queue.name
+            td=l guest_queue.created_at, format: :long
+            td
+              = link_to guest_queue_path(guest_queue), class: 'btn btn-xs btn-info', title: "#{ t('.show', default: t('helpers.links.show')) }" do
+                | Show
 
 = link_to t('.new', default: t("helpers.links.new")), new_guest_queue_path, class: 'btn btn-primary'
